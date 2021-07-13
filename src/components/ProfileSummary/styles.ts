@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ProfileSummary } from '../../components/ProfileSummary';
 
 export const Container = styled.ul`
   margin-top: 32px;

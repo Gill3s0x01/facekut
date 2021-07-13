@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import * as CardStyles from '../../components/Card/styles';
-
 export const Container = styled.main`
   width: 100%;
   grid-gap: 10px;
