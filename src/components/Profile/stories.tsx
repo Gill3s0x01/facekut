@@ -14,5 +14,5 @@ const Template: ComponentStory<typeof Profile> = ({ githubUser }) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  githubUser: 'Gilles30',
+  githubUser: 'brfeitoza',
 };

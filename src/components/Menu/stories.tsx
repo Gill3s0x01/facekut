@@ -13,12 +13,12 @@ const Template: ComponentStory<typeof Menu> = ({ githubUser }) => (
 
 export const Desktop = Template.bind({});
 Desktop.args = {
-  githubUser: 'Gilles30',
+  githubUser: 'brfeitoza',
 };
 
 export const Mobile = Template.bind({});
 Mobile.args = {
-  githubUser: 'Gilles30',
+  githubUser: 'brfeitoza',
 };
 
 Mobile.parameters = {

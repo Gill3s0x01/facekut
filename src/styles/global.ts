@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { AlurakutStyles } from '../lib/AlurakutCommons';
+import { AlurakutStyles } from 'lib/AlurakutCommons';
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -23,6 +23,10 @@ export const GlobalStyles = createGlobalStyle`
     max-width: 100%;
     height: auto;
     display: block;
+  }
+
+  .ReactModal__Overlay.ReactModal__Overlay--after-open {
+    z-index: 102;
   }
 
   ${AlurakutStyles}

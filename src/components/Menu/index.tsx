@@ -1,42 +1,51 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from '../Link';
-import { MenuProfileSidebar } from '../MenuProfileSidebar';
 import * as S from './styles';
+import menuItems from './items.json';
+import { Profile } from 'components/Profile';
+import { ModalTheme } from 'components/ModalTheme';
+import { ModalContext } from 'contexts/ModalContext';
 
 interface MenuProps {
   githubUser: string;
 }
 
 export function Menu({ githubUser }: MenuProps) {
+  const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const menuActions = [
-    { name: 'Inicio', slug: '/' },
-    { name: 'Amigos', slug: '/amigos' },
-    { name: 'Comunidades', slug: '/comunidades' },
-  ];
-
-  function toggleMenu() {
+  function handleToggleMenu() {
     setIsOpen((prevState) => !prevState);
+  }
+
+  function handleToggleModal() {
+    setIsModalOpen((prevState) => !prevState);
   }
 
   return (
     <S.Wrapper>
-      <div className="container">
-        <S.Logo src={`${process.env.NEXT_PUBLIC_BASE_URL}/logo.svg`} />
+      <div data-testid="menu-container" className="container">
+        <S.Logo
+          src={`${process.env.NEXT_PUBLIC_BASE_URL}/logo.svg`}
+          alt="Alurakut"
+        />
 
-        <nav className="actions">
-          {menuActions.map((menuItem) => (
+        <nav className="items">
+          {menuItems.map((item) => (
             <Link
-              key={`key__${menuItem.name.toLocaleLowerCase()}`}
-              href={`${menuItem.slug.toLocaleLowerCase()}`}
+              key={`key__${item.name.toLocaleLowerCase()}`}
+              href={`${item.slug.toLocaleLowerCase()}`}
             >
-              {menuItem.name}
+              {item.name}
             </Link>
           ))}
         </nav>
 
         <nav>
+          <a href="#" onClick={handleToggleModal}>
+            Escolher tema
+          </a>
           <Link href="/logout">Sair</Link>
 
           <div>
@@ -44,21 +53,29 @@ export function Menu({ githubUser }: MenuProps) {
           </div>
         </nav>
 
-        <button onClick={toggleMenu}>
+        <button onClick={handleToggleMenu}>
           {isOpen && (
             <img
               src={`${process.env.NEXT_PUBLIC_BASE_URL}/icons/menu-open.svg?v=${process.env.NEXT_PUBLIC_VERSION}`}
+              alt="Icon close menu"
             />
           )}
           {!isOpen && (
             <img
               src={`${process.env.NEXT_PUBLIC_BASE_URL}/icons/menu-closed.svg?v=${process.env.NEXT_PUBLIC_VERSION}`}
+              alt="Icon burger menu"
             />
           )}
         </button>
       </div>
 
-      <MenuProfileSidebar githubUser={githubUser} isOpen={isOpen} />
+      {isOpen && (
+        <S.ProfileMobile isOpen={isOpen}>
+          <Profile githubUser={githubUser} />
+        </S.ProfileMobile>
+      )}
+
+      <ModalTheme isOpen={isModalOpen} />
     </S.Wrapper>
   );
 }
